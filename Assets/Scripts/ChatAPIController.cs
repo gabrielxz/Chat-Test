@@ -13,8 +13,10 @@ public class ChatAPIController : MonoBehaviour
     public GuessHandler guessHandlerScript;
     public ChatPanelManager myChatPanelManager;
 
-    private readonly string baseChatURL = "https://run.mocky.io/v3/";
-    private readonly string restOfURL = "db03d3a7-b904-44a1-96f6-bb5d8966ba64";
+   // private readonly string baseChatURL = "https://run.mocky.io/v3/";
+    private readonly string baseChatURL = "localhost:8080/";
+   // private readonly string restOfURL = "db03d3a7-b904-44a1-96f6-bb5d8966ba64";
+    private readonly string restOfURL = "chat/play";
 
     //these are the text-on-screen that tell the user if they're right/wrong
     public TMP_Text correct;
