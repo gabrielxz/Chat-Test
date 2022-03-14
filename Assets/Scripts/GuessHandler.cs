@@ -21,22 +21,27 @@ public class GuessHandler : MonoBehaviour
 
     public void HandleUserGuess(string s)
     {
+        //Debug.Log("user guess was " + theUserGuess.text + " and we thing that's great");
+
         //again, blanking out correct/wrong when starting a new guess
         correct.enabled = false;
         wrong.enabled = false;
 
-
         //compare the guess and the game name
-        guess = s.ToUpper();
+        guess = theUserGuess.text.ToUpper();
 
         if (guess == currentGameName.ToUpper())
         {
             Debug.Log("Correct");
             correct.enabled = true;
         }
+        else if (guess == "")
+        {
+            //do nothing
+        }
         else
         {
-            Debug.Log("Wrong");
+            Debug.Log("Wrong, user guessed " + s);
             wrong.enabled = true;
         }
 

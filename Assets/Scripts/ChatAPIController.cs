@@ -14,13 +14,15 @@ public class ChatAPIController : MonoBehaviour
     public ChatPanelManager myChatPanelManager;
 
    // private readonly string baseChatURL = "https://run.mocky.io/v3/";
-    private readonly string baseChatURL = "localhost:8080/";
-   // private readonly string restOfURL = "db03d3a7-b904-44a1-96f6-bb5d8966ba64";
+    private readonly string baseChatURL = "http://game.greatgreenspot.com:8080/";
+    // private readonly string baseChatURL = "localhost:8080/";
+    // private readonly string restOfURL = "db03d3a7-b904-44a1-96f6-bb5d8966ba64";
     private readonly string restOfURL = "chat/play";
 
     //these are the text-on-screen that tell the user if they're right/wrong
     public TMP_Text correct;
     public TMP_Text wrong;
+    public TMP_Text currentGameName;
 
     string[] commentsAndNames;
     JSONNode theWholeJSON, theCommentsJSON;
@@ -40,10 +42,13 @@ public class ChatAPIController : MonoBehaviour
         //make sure the correct/wrong texts are hidden
         correct.enabled = false;
         wrong.enabled = false;
+        currentGameName.enabled = false;
+        messageToUsers.text = "";
+        currentGameName.text = "";
 
         StartCoroutine(GetChatLog(restOfURL));
 
-        messageToUsers.text = "";
+
     }
 
     //this grabs the chat log from the API and then starts the Coroutine that prints them on the screen
@@ -69,6 +74,8 @@ public class ChatAPIController : MonoBehaviour
 
         //Store name of correct game
         guessHandlerScript.currentGameName = theWholeJSON["gameName"];
+        currentGameName.text = theWholeJSON["gameName"];
+
 
         //print all the comments to the screen
         StartCoroutine(PrintAllTheChats());
@@ -84,6 +91,11 @@ public class ChatAPIController : MonoBehaviour
             myChatPanelManager.SendMessageToChat("<color=#E0E300>" + theCommentsJSON[i]["name"] + "</color>" + ": " + theCommentsJSON[i]["comment"]);
             yield return new WaitForSeconds(Random.Range(0.1f, 1.2f));
         }
+    }
+
+    public void showTheAnswer()
+    {
+        currentGameName.enabled = true;
     }
 
     
